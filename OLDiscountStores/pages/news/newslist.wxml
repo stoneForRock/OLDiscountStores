@@ -9,7 +9,7 @@
   </view>
 </scroll-view>
 
-<view class="free-WaterfallFlow" style='padding-top:80rpx'>
+<view class="free-WaterfallFlow">
       <block>
         <view class="flex-wrap" wx:for="{{newsList}}" wx:key='{{item.src}}' 
         wx:if="{{item.id%2!=''}}">
