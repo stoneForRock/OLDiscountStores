@@ -1,6 +1,7 @@
 .free-WaterfallFlow{
   width:94%;
   column-count:2;/*column-count 属性规定元素应该被分隔的列数：*/
+  padding: 0 3%;
 }
 .free-WaterfallFlow .flex-wrap{
   display: inline-block;
@@ -17,14 +18,38 @@
   width:95%;
   margin:0 auto;
 }
-.flex-wrap view:nth-child(2){
-  font-size:15px;
-  padding:2% 0;
-  color:#717171;
+
+.flex-wrap .item_bottom_contain {
+  display:flex;
+  flex-direction:row;
+  height:40rpx;
+  padding-left:20rpx;
+  padding-right:20rpx;
+} 
+.flex-wrap .item_bottom_contain .item_container {
+  flex:1;
+  display:flex;
+  flex-direction:row;
+  height:100%;
 }
-.flex-wrap view:nth-child(3){
+.flex-wrap .item_bottom_contain .item_container image {
+  width:30rpx;
+  margin:auto;
+  padding:0rpx;
+}
+.flex-wrap .item_bottom_contain .item_container view {
+  font-size:13px;
+  padding:5rpx;
+  color:#717171;
+  text-align: left;
+  flex:1;
+  height:100%;
+}
+
+
+/* .flex-wrap view:nth-child(3){
   font-size:13px;
   padding:2% 0;
   color:#aaa;
   text-align: right;
-}
+} */
