@@ -1,0 +1,47 @@
+<!-- pages/news/newslist.wxml -->
+
+<scroll-view scroll-x style="height:70rpx;width:100%;overflow:scroll;position:fixed" scroll-left="{{topTabScrollLeft}}">
+  <view style="width:{{topScrollWidth}}rpx;background:#ffffff">
+    <view wx:for="{{topSwiperList}}" style="height:100rpx;width:{{topTabWidth}}rpx;margin-bottom:10rpx;display:inline-block;">
+      <view bindtap='changeview' style="width:{{topTabWidth}}rpx;height:60rpx;text-align:center;font-size:30rpx;line-height:60rpx;background:#ffffff;color:{{currentIndex==index?'#ffad42':'#030303'}};display:inline-block;" data-current="{{index}}">{{item.title}}</view>
+      <view style="display:{{currentIndex==index?'block':'none'}}; width:{{topTabWidth/3}}rpx;text-align:center;margin-left:{{topTabWidth/3}}rpx;background:#ffad42;height:2rpx;"></view>
+    </view>
+  </view>
+</scroll-view>
+
+<view class="free-WaterfallFlow" style='padding-top:80rpx'>
+      <block>
+        <view class="flex-wrap" wx:for="{{newsList}}" wx:key='{{item.src}}' 
+        wx:if="{{item.id%2!=''}}">
+          <image mode="widthFix" src="{{item.src}}"></image>
+          <view class='item_bottom_contain' style='display:flex;flex-direction:row;height:40rpx;padding-left:20rpx;padding-right:20rpx;background:#fad120'>
+            <view class='liked_contain' style='flex:1;height:100%;display:flex;flex-direction:row;background:#049302;'>
+              <image class='item_icon' src='../../images/list_like_icon.png' style='width:30rpx;margin:auto;padding:0rpx;background:#030303;' mode='widthFix'></image>
+              <view class='item_content' style='flex:1;font:18px;color:#030303;align:left;color:#ffad42;padding:0rpx'>{{item.like}}</view>
+            </view>
+            <view class='scan_contain' style='flex:1;height:100%;display:flex;flex-direction:row;background:#394032;'>
+              <image class='item_icon' src='../../images/scan_icon.png' style='width:30rpx;margin:auto;background:#030303;' mode='widthFix'></image>
+              <view class='item_content' style='flex:1;font:18px;color:#030303;background:#ffffff;align:left;color:#ffad42;padding:0rpx'>{{item.scan}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+      <block>
+        <view class="flex-wrap" wx:for="{{newsList}}" wx:key='{{item.src}}'
+        wx:if="{{item.id%2==''}}">
+          <image mode="widthFix" src="{{item.src}}"></image>
+          <view class='item_bottom_contain' style='display:flex;flex-direction:row;height:40rpx;padding-left:20rpx;padding-right:20rpx;background:#fad120'>
+            <view class='liked_contain' style='flex:1;height:100%;display:flex;flex-direction:row;background:#049302;'>
+              <image class='item_icon' src='../../images/list_like_icon.png' style='width:30rpx;margin:auto;padding:0rpx;background:#030303;' mode='widthFix'></image>
+              <view class='item_content' style='flex:1;font:18px;color:#030303;align:left;color:#ffad42;padding:0rpx'>{{item.like}}</view>
+            </view>
+            <view class='scan_contain' style='flex:1;height:100%;display:flex;flex-direction:row;background:#394032;'>
+              <image class='item_icon' src='../../images/scan_icon.png' style='width:30rpx;margin:auto;background:#030303;' mode='widthFix'></image>
+              <view class='item_content' style='flex:1;font:18px;color:#030303;background:#ffffff;align:left;color:#ffad42;padding:0rpx'>{{item.scan}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+</view>
+
+    
