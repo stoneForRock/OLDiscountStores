@@ -1,3 +1,59 @@
+.cover {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+}
+
+.cover .guide_image {
+  width: 100%;
+  height: 80%;
+  position: fixed;
+  margin-top: 20%;
+}
+.cover .guide_skip_btn {
+  width: 20%;
+  height: 40rpx;
+  font-size: 12px;
+  margin-top: 20rpx;
+  margin-left: 75%;
+  line-height: 40rpx;
+  background:  #ffad42;
+}
+
+.tab_scroll {
+  height:70rpx;
+  width:100%;
+  overflow:scroll;
+  position:fixed;
+}
+
+.tab_scroll .tab_scroll_container {
+  background:#ffffff;
+}
+
+.tab_scroll .tab_scroll_container .tap_widget_container {
+  height:100rpx;
+  margin-bottom:10rpx;
+  display:inline-block;
+}
+
+.tab_scroll .tab_scroll_container .tap_widget_container .tap_widget_textwidget { 
+  height:60rpx;
+  text-align:center;
+  font-size:30rpx;
+  line-height:60rpx;
+  background:#ffffff;
+  display:inline-block;
+}
+
+.tab_scroll .tab_scroll_container .tap_widget_container .tap_widget_indexbarwidget { 
+  text-align:center;
+  background:#ffad42;
+  height:2rpx;
+}
+
 .free-WaterfallFlow{
   width:94%;
   column-count:2;/*column-count 属性规定元素应该被分隔的列数：*/
@@ -18,6 +74,18 @@
 .flex-wrap image{
   width:95%;
   margin:0 auto;
+}
+
+.flex-wrap .item_title {
+  position: relative;
+  bottom: 60rpx;
+  line-height: 60rpx;
+  font-size: 12px;
+  color: #FFF;
+  background-color: rgba(0, 0, 0, 0.4);
+  text-align: left;
+  padding: 0 10rpx;
+  height: 60rpx;
 }
 
 .flex-wrap .item_bottom_contain {

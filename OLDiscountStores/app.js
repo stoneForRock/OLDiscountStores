@@ -7,7 +7,7 @@ App({
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
   onLaunch: function () {
-      
+      this.globalData.showguide = true;
   },
 
   /**
@@ -57,7 +57,7 @@ App({
 
       success: function (res) {
         wx.setStorageSync(sourceId, true);
-        that.showInfo('已点赞','success');
+        that.showInfo('点赞成功','success');
       },
 
       fail: function (error) {
@@ -65,5 +65,10 @@ App({
         that.showInfo('点赞失败','error');
       }
     })
+  },
+
+  // app全局数据
+  globalData: {
+    showguide: false
   }
 })

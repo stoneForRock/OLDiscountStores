@@ -17,6 +17,7 @@ const likedSourceUrl = baseUrl + 'api/article/like';
 const getNewsListOptionsBarListUrl = baseUrl + 'api/article/columns';
 
 module.exports = {
+  baseUrl: baseUrl,
   getNewsListUrl: getNewsListUrl,
   getNewsDetialUrl: getNewsDetialUrl,
   likedSourceUrl: likedSourceUrl,

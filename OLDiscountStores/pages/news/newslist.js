@@ -12,134 +12,76 @@ Page({
    * 页面的初始数据
    */
   data: {
+    detialPageId: "",
+    image_baseurl: api.baseUrl,
+
+    //是否显示添加到我的小程序的cover
+    showCover: false,
 
     //顶部布局的数据
     topSwiperList: [],    //顶部选项卡数据
 
     showLoading: false,   //是否显示正在加载
-    currentIndex: 0,      //当前选择的选项卡Index
+    currentTabIndex: 0,      //当前选择的选项卡Index
     topTabWidth: 0,       //顶部每个tab的宽度
     topTabScrollLeft: 0,  //上方滚动的距离
     topScrollWidth: 0,     //可滚动区域的大小
 
+    likeCount: "28371",
+    readCount: "32453",
+
     //下方布局的数据
     pageIndex: 0,
     pageSize:10,
-    newsList: [{
-      id: '1',
-      src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1534855491092&di=00b486dbdb03d09d03eeddf6eb047cec&imgtype=0&src=http%3A%2F%2Fwww.znsfagri.com%2Fuploadfile%2Feditor%2Fimage%2F20170626%2F20170626151136_11631.jpg',
-      name: '网络图片',
-      like: '19201',
-      scan: '32345'
-    }, {
-        id: '2',
-        src: '../../images/02.jpg',
-        name: '照片02',
-        like: '19201',
-        scan: '32345'
-      }, {
-        id: '3',
-        src: '../../images/03.jpg',
-        name: '照片03',
-        like: '19201',
-        scan: '32345'
-      }, {
-        id: '4',
-        src: '../../images/04.jpg',
-        name: '照片04',
-        like: '19201',
-        scan: '32345'
-      }, {
-        id: '5',
-        src: '../../images/05.jpg',
-        name: '照片05',
-        like: '19201',
-        scan: '32345'
-      }, {
-        id: '6',
-        src: '../../images/06.jpg',
-        name: '照片06',
-        like: '19201',
-        scan: '32345'
-      }, {
-        id: '7',
-        src: '../../images/01.jpg',
-        name: '照片07',
-        like: '19201',
-        scan: '32345'
-      }],         //资讯列表数据
+    newsList: [],         //资讯列表数据
   },
 
   //----------页面生命周期
   onLoad: function (options) {
-
     this.loadTopOptionBarList();
-
     let _lauchInfo = {};
     let that = this;
-
     for (let key in options) {
       _lauchInfo[key] = decodeURIComponent(options[key]);
     }
     if (_lauchInfo.id) {
-      // this.turuDetailPage(_lauchInfo.id);
+      this.setData({
+        detialPageId: _lauchInfo.id,
+      })
+      this.turuDetailPage(this.data.detialPageId);
     }
   },
 
   //界面出现的时候
   onShow: function () {
+    this.initDataInfo();
     this.fromartUIData();
+  },
+
+  /**
+   * 初始化初始值
+   */
+  initDataInfo: function () {
+    this.setData({
+      showCover: app.globalData.showguide,
+    })
   },
 
   //初始化tabIndex的界面
   fromartUIData: function () {
     var windowHeight = wx.getSystemInfoSync().windowHeight;
     var windowWidth = wx.getSystemInfoSync().windowWidth;
-    // console.log('windowWidth---' + windowWidth);
     var signalTabWidth = windowWidth / 3;
     var canScrollWidth = windowWidth * 2;
-    // console.log('canScrollWidth1---' + canScrollWidth);
     var topSwiperWidth = this.data.topSwiperList.length * signalTabWidth;
     if (canScrollWidth < topSwiperWidth) {
       canScrollWidth = topSwiperWidth;
     }
-    // console.log('canScrollWidth2---' + canScrollWidth);
     this.setData({
       topTabWidth: signalTabWidth,
       topScrollWidth: canScrollWidth,
     });
   },
-
-  //----------通用方法
-
-  showInfo: function (info, icon = 'none') {
-    wx.showToast({
-      title: info,
-      icon: icon,
-      duration: 1500,
-      mask: true
-    });
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-    return {
-      title: '我发现了一个不错的小程序，分享给你吧',
-      path: '/pages/news/newslist',
-      imageUrl: '/images/04.jpg',
-      success: function (res) {
-        // 转发成功
-        console.log('转发成功');
-      },
-      fail: function (res) {
-        // 转发失败
-        console.log('转发失败')
-      }
-    }
-  },
-
 
   //----------页面响应相关
 
@@ -151,12 +93,12 @@ Page({
       distance = parseInt(crash_current - 1) * this.data.topTabWidth;
     }
     this.setData({
-      currentIndex: e.currentTarget.dataset.current,
+      currentTabIndex: e.currentTarget.dataset.current,
       topTabScrollLeft: distance,
-      pageIndex: 0,
+      pageIndex: 1,
     });
 
-    this.loadTabDatasourceRequest(this.data.currentIndex);
+    this.loadTabDatasourceRequest(this.data.currentTabIndex);
   },
 
   //点击单个卡片，跳转详情
@@ -173,6 +115,16 @@ Page({
     })
   },
 
+  /**
+   * 点击跳过
+   */
+  skipAction: function () {
+    app.globalData.showguide = false;
+    this.setData({
+      showCover: app.globalData.showguide,
+    })
+  },
+
   //----------数据请求相关
 
   //拉取顶部选项卡数据
@@ -186,7 +138,6 @@ Page({
       success: function (res) {
         wx.hideLoading();
         let data = res.data;
-        console.log(data);
         var recommendArray = [{
           deleteFlag:0,
           id: '',
@@ -197,10 +148,10 @@ Page({
         }
         that.setData({
           topSwiperList: recommendArray,
-          currentIndex: 0,
-          pageIndex: 0,
+          currentTabIndex: 0,
+          pageIndex: 1,
         });
-        that.loadTabDatasourceRequest(that.data.currentIndex);
+        that.loadTabDatasourceRequest(that.data.currentTabIndex);
       },
       error: function (err) {
         wx.hideLoading();
@@ -223,12 +174,25 @@ Page({
       },
       success: function(res) {
         that.endRefreshForTabInfo();
-        let data = res.data;
-        console.log(data);
-        // var newArray = that.data.newsList.concat(that.data.newsList.concat);
-        // that.setData({
-        //   newsList: newArray,
-        // });
+        let resposnedata = res.data;
+        if (resposnedata.code === 0) {
+          if (that.data.pageIndex == 1) {
+            that.setData({
+              newsList: [],
+            });
+          }
+          var responseList = resposnedata.data.list;
+          if (responseList.length > 0) {
+            var newArray = that.data.newsList.concat(responseList);
+            that.setData({
+              newsList: newArray,
+            });
+          } else {
+            that.showInfo("暂无数据",'none');
+          }
+        } else {
+          that.showInfo("请求失败，请稍候再试", 'none');
+        }
       },
       error: function(err) {
         that.endRefreshForTabInfo();
@@ -251,16 +215,47 @@ Page({
     this.setData({
       pageIndex: currentPageIndex,
     });
-    this.loadTabDatasourceRequest(this.data.currentIndex);
+    this.loadTabDatasourceRequest(this.data.currentTabIndex);
   },
 
   //下拉刷新的回调
   onPullDownRefresh: function () {
     this.setData({
-      pageIndex: 0,
+      pageIndex: 1,
     });
-    this.loadTabDatasourceRequest(this.data.currentIndex);
+    this.loadTabDatasourceRequest(this.data.currentTabIndex);
   },
 
+  //----------通用方法
+  /**
+   * showToast的封装
+   */
+  showInfo: function (info, icon = 'none') {
+    wx.showToast({
+      title: info,
+      icon: icon,
+      duration: 1500,
+      mask: true
+    });
+  },
+
+  /**
+     * 用户点击右上角分享
+     */
+  onShareAppMessage: function () {
+    return {
+      title: '我发现了一个不错的小程序，分享给你吧',
+      path: '/pages/news/newslist',
+      imageUrl: '/images/04.jpg',
+      success: function (res) {
+        // 转发成功
+        console.log('转发成功');
+      },
+      fail: function (res) {
+        // 转发失败
+        console.log('转发失败')
+      }
+    }
+  },
 })
   

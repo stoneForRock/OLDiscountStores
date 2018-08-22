@@ -31,10 +31,14 @@
   height: 100rpx;
   margin: 5%;
   padding: auto;
+  vertical-align: middle;
+  line-height: 100rpx;
+  background:  #ffad42;
 }
 
 .bottom_btn_container .bottom_btn image {
   width: 50rpx;
-  margin: 25rpx;
-  background: #fff;
+  height: 50rpx;  
+  margin-bottom: 10rpx;
+  vertical-align: middle;
 }

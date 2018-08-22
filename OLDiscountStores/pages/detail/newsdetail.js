@@ -15,12 +15,10 @@ Page({
    */
   data: {
     newsId: "",           //详情页的id
-    newsDetailInfo: {
-      title: "中央军委党的建设会议再次提醒全军：我们为什么出发",
-      author: "人民日报",
-      publishtime: "2018-08-22",
-    },   //详情页数据
-    liked: false,
+    newsDetailInfo: {},   //详情页数据
+    liked: false,         //是否已经点赞.由于没有用户体系，此处是否点赞为本地记录
+    likeCount: "10",         //点赞数
+    readCount: 0,         //阅读数
   },
 
   /**
@@ -58,21 +56,12 @@ Page({
         wx.hideLoading();
         let data = res.data;
         if (data.code === 0) {
-          var article = `< !DOCTYPE HTML ><!--注释: wxParse试验文本-->
-      <div style="text-align:center;margin-top:10px;">
-		<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1534855491092&di=00b486dbdb03d09d03eeddf6eb047cec&imgtype=0&src=http%3A%2F%2Fwww.znsfagri.com%2Fuploadfile%2Feditor%2Fimage%2F20170626%2F20170626151136_11631.jpg" alt="wxParse-微信小程序富文本解析组件Logo">
-		<h1 style="color:red;">wxParse-微信小程序富文本解析组件</h1>
-		<h2 >支持Html及markdown转wxml可视化</h2>
-	</div>
-	<div style="margin-top:10px;">
-		<h3 style="color: #000;">支持video</h3>
-		<div style="margin-top:10px;">
-			<video src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400"></video>
-		</div>
-	</div>
-	</div>
-	<!--ap-->
-    `;
+          var newdetialInfo = data.data;
+          that.setData({
+            newsDetailInfo: newdetialInfo,
+            // likeCount: newdetialInfo.likeCount,
+          })
+          var article = newdetialInfo.content;
           WxParse.wxParse('article_content', 'html', article, that, 5);
 
         } else {
@@ -133,7 +122,8 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (ops) {
+    var that = this;
     var newsTitle = this.data.newsDetailInfo.title;
     if (ops.from === 'button') {
       // 来自页面内转发按钮
@@ -145,12 +135,12 @@ Page({
       success: function (res) {
         // 转发成功
         console.log("转发成功:" + JSON.stringify(res));
-        this.showInfo("转发成功","success");
+        that.showInfo("转发成功","success");
       },
       fail: function (res) {
         // 转发失败
         console.log("转发失败:" + JSON.stringify(res));
-        this.showInfo("转发失败:" + JSON.stringify(res), "error");
+        that.showInfo("转发失败:" + JSON.stringify(res), "error");
       }
     }
   },
