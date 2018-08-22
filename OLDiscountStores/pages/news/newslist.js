@@ -71,8 +71,19 @@ Page({
   },
 
   //----------页面生命周期
-  onLoad: function () {
+  onLoad: function (options) {
+
     this.loadTopOptionBarList();
+
+    let _lauchInfo = {};
+    let that = this;
+
+    for (let key in options) {
+      _lauchInfo[key] = decodeURIComponent(options[key]);
+    }
+    if (_lauchInfo.id) {
+      // this.turuDetailPage(_lauchInfo.id);
+    }
   },
 
   //界面出现的时候
@@ -150,12 +161,13 @@ Page({
 
   //点击单个卡片，跳转详情
   goDetail: function (e) {
-    let info = e.currentTarget.id;
-    console.log('点击卡片的内容 ' + info);
+    let newsId = e.currentTarget.id;
+    console.log('点击卡片的内容 ' + newsId);
+    this.turuDetailPage(newsId);
+  },
 
-    let navigateUrl = '../detail/newsdetail?sourcesId=' + info;
-
-    console.log('navigateUrl ' + navigateUrl);
+  turuDetailPage: function (newsId) {
+    let navigateUrl = '../detail/newsdetail?sourcesId=' + newsId;
     wx.navigateTo({
       url: navigateUrl,
     })

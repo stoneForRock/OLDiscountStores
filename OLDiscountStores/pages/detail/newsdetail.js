@@ -134,23 +134,23 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    var that = this;
+    var newsTitle = this.data.newsDetailInfo.title;
     if (ops.from === 'button') {
       // 来自页面内转发按钮
       console.log(ops.target)
     }
     return {
-      title: that.data.newsDetailInfo.title,
-      path: '/pages/detail/newsdetail',
+      title: newsTitle,
+      path: '/pages/news/newslist?id=' + this.data.newsId,
       success: function (res) {
         // 转发成功
         console.log("转发成功:" + JSON.stringify(res));
-        that.showInfo("转发成功","success");
+        this.showInfo("转发成功","success");
       },
       fail: function (res) {
         // 转发失败
         console.log("转发失败:" + JSON.stringify(res));
-        that.showInfo("转发失败:" + JSON.stringify(res), "error");
+        this.showInfo("转发失败:" + JSON.stringify(res), "error");
       }
     }
   },
