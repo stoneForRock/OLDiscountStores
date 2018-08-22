@@ -23,6 +23,8 @@ Page({
     topScrollWidth: 0,     //可滚动区域的大小
 
     //下方布局的数据
+    pageIndex: 0,
+    pageSize:10,
     newsList: [{
       id: '1',
       src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1534855491092&di=00b486dbdb03d09d03eeddf6eb047cec&imgtype=0&src=http%3A%2F%2Fwww.znsfagri.com%2Fuploadfile%2Feditor%2Fimage%2F20170626%2F20170626151136_11631.jpg',
@@ -126,7 +128,6 @@ Page({
         like: '19201',
         scan: '32345'
       },],         //资讯列表数据
-    contentHeight: 0,     //资讯列表内容的高度
   },
 
   //----------页面生命周期
@@ -154,11 +155,11 @@ Page({
     // console.log('canScrollWidth2---' + canScrollWidth);
     this.setData({
       topTabWidth: signalTabWidth,
-      contentHeight: windowHeight - 80,
       topScrollWidth: canScrollWidth,
     });
   },
 
+  //----------通用方法
 
   showInfo: function (info, icon = 'none') {
     wx.showToast({
@@ -167,6 +168,25 @@ Page({
       duration: 1500,
       mask: true
     });
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '我发现了一个不错的小程序，分享给你吧',
+      path: '/pages/news/newslist',
+      imageUrl: '/images/04.jpg',
+      success: function (res) {
+        // 转发成功
+        console.log('转发成功');
+      },
+      fail: function (res) {
+        // 转发失败
+        console.log('转发失败')
+      }
+    }
   },
 
 
@@ -181,7 +201,8 @@ Page({
     }
     this.setData({
       currentIndex: e.currentTarget.dataset.current,
-      topTabScrollLeft: distance
+      topTabScrollLeft: distance,
+      pageIndex: 0,
     });
 
     this.loadTabDatasourceRequest(this.data.currentIndex);
@@ -189,19 +210,18 @@ Page({
 
   //点击单个卡片，跳转详情
   goDetail: function (e) {
-    let info = e.currentTarget.dataset;
-    console.log('点击响应事件' + info);
-    // wx.navigateTo({
-    //   url: '../detail/newsdetail',
-    // })
+    let info = e.currentTarget.id;
+    console.log('点击卡片的内容 ' + info);
+
+    let navigateUrl = '../detail/newsdetail?sourcesId=' + info;
+
+    console.log('navigateUrl ' + navigateUrl);
+    wx.navigateTo({
+      url: navigateUrl,
+    })
   },
 
   //----------数据请求相关
-
-  //下拉刷新的回调
-  onPullDownRefresh: function () {
-    this.loadTabDatasourceRequest(this.data.currentIndex);
-  },
 
   //拉取顶部选项卡数据
   loadTopOptionBarList: function () {
@@ -215,16 +235,20 @@ Page({
         wx.hideLoading();
         let data = res.data;
         console.log(data);
+        var recommendArray = [{
+          deleteFlag:0,
+          id: '',
+          title: '推荐',
+        }];
         if (data.code === 0 && data.data.length > 0) {
-          setTimeout(function () {
-            that.setData({
-              topSwiperList: data.data,
-              currentIndex: 0,
-            });
-
-            that.loadTabDatasourceRequest(that.data.currentIndex);
-          }, 800);
+          recommendArray = recommendArray.concat(data.data);
         }
+        that.setData({
+          topSwiperList: recommendArray,
+          currentIndex: 0,
+          pageIndex: 0,
+        });
+        that.loadTabDatasourceRequest(that.data.currentIndex);
       },
       error: function (err) {
         wx.hideLoading();
@@ -241,7 +265,9 @@ Page({
     wx.request({
       url: api.getNewsListUrl,
       data: {
-        itemId: barItemInfo.id
+        args: barItemInfo.id,
+        page: that.data.pageIndex,
+        pageSize: that.data.pageSize,
       },
       success: function(res) {
         that.endRefreshForTabInfo();
@@ -259,5 +285,25 @@ Page({
     wx.hideNavigationBarLoading();//隐藏导航条加载动画。
     wx.stopPullDownRefresh();//停止当前页面下拉刷新
   },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    console.log('上拉页面触底');
+    this.setData({
+      pageIndex: pageIndex++,
+    });
+    this.loadTabDatasourceRequest(this.data.currentIndex);
+  },
+
+  //下拉刷新的回调
+  onPullDownRefresh: function () {
+    this.setData({
+      pageIndex: 0,
+    });
+    this.loadTabDatasourceRequest(this.data.currentIndex);
+  },
+
 })
   

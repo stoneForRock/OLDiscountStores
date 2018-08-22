@@ -10,12 +10,9 @@
 </scroll-view>
 
 <view class="free-WaterfallFlow">
-      <block  wx:for="{{newsList}}" wx:key='{{item.src}}' wx:if="{{item.index%2!=''}}">
-        <view 
-          class="flex-wrap"
-          bindtap="goDetail"
-          id="{{item.id}}"
-        >
+      <block>
+        <view class="flex-wrap" wx:for="{{newsList}}" wx:key='{{item.src}}' 
+        wx:if="{{(index+1)%2!=''}}" bindtap='goDetail' id="{{item.id}}">
           <image mode="widthFix" src="{{item.src}}"></image>
           <view class='item_bottom_contain'>
             <view class='item_container'>
@@ -29,12 +26,10 @@
           </view>
         </view>
       </block>
-      <block wx:for="{{newsList}}" wx:key='{{item.src}}' wx:if="{{item.index%2==''}}">
-        <view 
-          class="flex-wrap"
-          bindtap="goDetail"
-          id="{{item.id}}"
-        >
+      <block>
+        <view class="flex-wrap" wx:for="{{newsList}}" wx:key='{{item.src}}'
+        wx:if="{{(index+1)%2==''}}" bindtap='goDetail' id="{{item.id}}">
+
           <image mode="widthFix" src="{{item.src}}"></image>
           <view class='item_bottom_contain'>
             <view class='item_container'>

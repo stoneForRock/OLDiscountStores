@@ -12,13 +12,36 @@ Page({
    * 页面的初始数据
    */
   data: {
+    newsId: "",   //详情页的id
     
+  },
+
+  /**
+   * showToast的封装
+   */
+  showInfo: function (info, icon = 'none') {
+    wx.showToast({
+      title: info,
+      icon: icon,
+      duration: 1500,
+      mask: true
+    });
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let _pushInfo = {};
+    let that = this;
+
+    for (let key in options) {
+      _pushInfo[key] = decodeURIComponent(options[key]);
+    }
+    that.setData({
+      newsId: _pushInfo.sourcesId
+    });
+
     
   },
 
