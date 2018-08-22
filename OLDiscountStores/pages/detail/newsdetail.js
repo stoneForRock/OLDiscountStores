@@ -140,7 +140,7 @@ Page({
       fail: function (res) {
         // 转发失败
         console.log("转发失败:" + JSON.stringify(res));
-        that.showInfo("转发失败:" + JSON.stringify(res), "error");
+        // that.showInfo("转发失败:" + JSON.stringify(res), "error");
       }
     }
   },

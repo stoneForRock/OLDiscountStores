@@ -250,6 +250,7 @@ Page({
       success: function (res) {
         // 转发成功
         console.log('转发成功');
+        that.showInfo("转发成功", "success");
       },
       fail: function (res) {
         // 转发失败
