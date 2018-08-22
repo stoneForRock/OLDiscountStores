@@ -129,18 +129,82 @@ Page({
     contentHeight: 0,     //资讯列表内容的高度
   },
 
+  //----------页面生命周期
   onLoad: function () {
     this.loadTopOptionBarList();
   },
 
+  //界面出现的时候
+  onShow: function () {
+    this.fromartUIData();
+  },
+
+  //初始化tabIndex的界面
+  fromartUIData: function () {
+    var windowHeight = wx.getSystemInfoSync().windowHeight;
+    var windowWidth = wx.getSystemInfoSync().windowWidth;
+    // console.log('windowWidth---' + windowWidth);
+    var signalTabWidth = windowWidth / 3;
+    var canScrollWidth = windowWidth * 2;
+    // console.log('canScrollWidth1---' + canScrollWidth);
+    var topSwiperWidth = this.data.topSwiperList.length * signalTabWidth;
+    if (canScrollWidth < topSwiperWidth) {
+      canScrollWidth = topSwiperWidth;
+    }
+    // console.log('canScrollWidth2---' + canScrollWidth);
+    this.setData({
+      topTabWidth: signalTabWidth,
+      contentHeight: windowHeight - 80,
+      topScrollWidth: canScrollWidth,
+    });
+  },
+
+
+  showInfo: function (info, icon = 'none') {
+    wx.showToast({
+      title: info,
+      icon: icon,
+      duration: 1500,
+      mask: true
+    });
+  },
+
+
+  //----------页面响应相关
+
+  //点击上方的选项卡的回调，进行切换页面
+  changeview: function (e) {
+    var crash_current = e.currentTarget.dataset.current;
+    var distance = 0;
+    if (crash_current != 0 && crash_current != 1) {
+      distance = parseInt(crash_current - 1) * this.data.topTabWidth;
+    }
+    this.setData({
+      currentIndex: e.currentTarget.dataset.current,
+      topTabScrollLeft: distance
+    });
+
+    this.loadTabDatasourceRequest(this.data.currentIndex);
+  },
+
+  //点击单个卡片，跳转详情
+  goDetail: function (e) {
+    let info = e.currentTarget.dataset;
+    console.log('点击响应事件' + info);
+    // wx.navigateTo({
+    //   url: '../detail/newsdetail',
+    // })
+  },
+
+  //----------数据请求相关
+
   //下拉刷新的回调
-  onPullDownRefresh: function() {
-    console.log("下拉刷新了");
+  onPullDownRefresh: function () {
     this.loadTabDatasourceRequest(this.data.currentIndex);
   },
 
   //拉取顶部选项卡数据
-  loadTopOptionBarList: function() {
+  loadTopOptionBarList: function () {
     wx.showLoading({
       title: '请稍候...',
     })
@@ -169,26 +233,6 @@ Page({
     })
   },
 
-  //界面出现的时候
-  onShow: function () {
-    this.fromartUIData();
-  },
-
-  //点击上方的选项卡的回调，进行切换页面
-  changeview: function (e) {
-    var crash_current = e.currentTarget.dataset.current;
-    var distance = 0;
-    if (crash_current != 0 && crash_current != 1) {
-      distance = parseInt(crash_current - 1) * this.data.topTabWidth;
-    }
-    this.setData({
-      currentIndex: e.currentTarget.dataset.current,
-      topTabScrollLeft: distance
-    });
-
-    this.loadTabDatasourceRequest(this.data.currentIndex);
-  },
-
   //获取对应tab index的页面数据
   loadTabDatasourceRequest: function (barIndex = 0) {
     wx.showNavigationBarLoading();
@@ -215,34 +259,5 @@ Page({
     wx.hideNavigationBarLoading();//隐藏导航条加载动画。
     wx.stopPullDownRefresh();//停止当前页面下拉刷新
   },
-
-  showInfo: function (info, icon = 'none') {
-    wx.showToast({
-      title: info,
-      icon: icon,
-      duration: 1500,
-      mask: true
-    });
-  },
-
-//初始化tabIndex的界面
-  fromartUIData: function () {
-    var windowHeight = wx.getSystemInfoSync().windowHeight;
-    var windowWidth = wx.getSystemInfoSync().windowWidth;
-    console.log('windowWidth---' + windowWidth);
-    var signalTabWidth = windowWidth / 3;
-    var canScrollWidth = windowWidth*2;
-    console.log('canScrollWidth1---' + canScrollWidth);
-    var topSwiperWidth = this.data.topSwiperList.length * signalTabWidth;
-    if (canScrollWidth < topSwiperWidth) {
-      canScrollWidth = topSwiperWidth;
-    }
-    console.log('canScrollWidth2---' + canScrollWidth);
-    this.setData({
-      topTabWidth: signalTabWidth,
-      contentHeight: windowHeight-80,
-      topScrollWidth: canScrollWidth,
-    });
-  }
-
 })
+  
