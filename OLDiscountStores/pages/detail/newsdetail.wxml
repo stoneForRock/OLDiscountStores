@@ -1,0 +1,21 @@
+<!-- pages/detail/newsdetail.wxml -->
+<import src="../../lib/wxParse/wxParse.wxml"/>  
+
+<view class='detial_container'>
+  <view class='topinfo_container'>
+    <view class='content_title'>{{newsDetailInfo.title}}</view>
+    <view class='content_userinfo'>
+      <view class='author_name'>作者:{{newsDetailInfo.author}}</view>
+      <view class='publish_time'>发布时间:{{newsDetailInfo.publishtime}}</view>
+    </view>
+  </view>
+  
+  <view  class="wxParse">
+    <template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
+  </view>
+
+  <view class='bottom_btn_container'>
+    <button></button>
+  </view>
+
+</view>

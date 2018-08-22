@@ -1,0 +1,19 @@
+
+@import "/lib/wxParse/wxParse.wxss";
+
+.topinfo_container {
+  width: 96%;
+  margin: 2%;
+  padding: 0;
+}
+
+.topinfo_container .content_title {
+  font-size: 24px;
+  color: #030303;
+}
+
+.topinfo_container .content_userinfo view {
+  text-align: left;
+  font-size: 14px;
+  color: #06060665;
+}

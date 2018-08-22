@@ -2,7 +2,7 @@
 
 
 // 服务器域名
-const baseUrl = 'https://118.24.80.76:8012/';
+const baseUrl = 'https://olds.developer-ice.xyz/';
 
 // 获取资讯列表
 const getNewsListUrl = baseUrl + 'api/article/list';

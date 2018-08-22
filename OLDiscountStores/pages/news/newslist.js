@@ -67,67 +67,7 @@ Page({
         name: '照片07',
         like: '19201',
         scan: '32345'
-      }, {
-        id: '8',
-        src: '../../images/03.jpg',
-        name: '照片08',
-        like: '19201',
-        scan: '32345'
-      }, {
-        id: '9',
-        src: '../../images/01.jpg',
-        name: '照片09',
-        like: '19201',
-        scan: '32345'
-      }, {
-        id: '10',
-        src: '../../images/02.jpg',
-        name: '照片10',
-        like: '19201',
-        scan: '32345'
-      }, {
-        id: '11',
-        src: '../../images/04.jpg',
-        name: '照片11',
-        like: '19201',
-        scan: '32345'
-      }, {
-        id: '12',
-        src: '../../images/05.jpg',
-        name: '照片12',
-        like: '19201',
-        scan: '32345'
-      }, {
-        id: '13',
-        src: '../../images/06.jpg',
-        name: '照片13',
-        like: '19201',
-        scan: '32345'
-      }, {
-        id: '14',
-        src: '../../images/02.jpg',
-        name: '照片14',
-        like: '19201',
-        scan: '32345'
-      }, {
-        id: '15',
-        src: '../../images/05.jpg',
-        name: '照片15',
-        like: '19201',
-        scan: '32345'
-      }, {
-        id: '16',
-        src: '../../images/03.jpg',
-        name: '照片16',
-        like: '19201',
-        scan: '32345'
-      }, {
-        id: '17',
-        src: '../../images/06.jpg',
-        name: '照片17',
-        like: '19201',
-        scan: '32345'
-      },],         //资讯列表数据
+      }],         //资讯列表数据
   },
 
   //----------页面生命周期
@@ -273,6 +213,10 @@ Page({
         that.endRefreshForTabInfo();
         let data = res.data;
         console.log(data);
+        // var newArray = that.data.newsList.concat(that.data.newsList.concat);
+        // that.setData({
+        //   newsList: newArray,
+        // });
       },
       error: function(err) {
         that.endRefreshForTabInfo();
@@ -291,8 +235,9 @@ Page({
    */
   onReachBottom: function () {
     console.log('上拉页面触底');
+    let currentPageIndex = this.data.pageIndex+1;
     this.setData({
-      pageIndex: pageIndex++,
+      pageIndex: currentPageIndex,
     });
     this.loadTabDatasourceRequest(this.data.currentIndex);
   },
