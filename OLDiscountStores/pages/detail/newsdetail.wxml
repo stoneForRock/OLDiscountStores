@@ -15,7 +15,15 @@
   </view>
 
   <view class='bottom_btn_container'>
-    <button></button>
+    <button class='bottom_btn' id='like_button' type='primary' hover-class='bottom-button-hover' bindtap='likeAction'>
+      <image src='../../images/unlike_icon.png' wx:if="{{!liked}}" mode='widthFix'></image>
+      <image src='../../images/like_icon.png' wx:if="{{liked}}" mode='widthFix'></image>
+      喜欢
+    </button>
+    <button class='bottom_btn' id='share_button' open-type="share" type='primary' hover-class='bottom-button-hover'>
+      <image src='../../images/unlike_icon.png' mode='widthFix'></image>
+      分享给好友
+    </button>
   </view>
 
 </view>

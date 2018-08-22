@@ -49,7 +49,11 @@ App({
   likedSourceWithId: function (sourceId) {
     let that = this;
     wx.request({
-      url: api.likedSourceUrl + sourceId,
+      url: api.likedSourceUrl,
+      data:{
+        id: sourceId,
+      },
+      method: "POST",
 
       success: function (res) {
         wx.setStorageSync(sourceId, true);

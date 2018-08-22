@@ -11,7 +11,7 @@ const getNewsListUrl = baseUrl + 'api/article/list';
 const getNewsDetialUrl = baseUrl + 'api/article/detail/';
 
 // 点赞
-const likedSourceUrl = baseUrl + 'api/article/liked/';
+const likedSourceUrl = baseUrl + 'api/article/like';
 
 //获取首页上方选项卡的数据
 const getNewsListOptionsBarListUrl = baseUrl + 'api/article/columns';

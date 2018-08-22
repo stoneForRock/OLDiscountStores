@@ -17,3 +17,24 @@
   font-size: 14px;
   color: #06060665;
 }
+
+.bottom_btn_container {
+  display: flex;
+  flex-direction:row;
+  width: 96%;
+  margin: 2%;
+}
+
+.bottom_btn_container button {
+  flex: 1;
+  font-size: 15px;
+  height: 100rpx;
+  margin: 5%;
+  padding: auto;
+}
+
+.bottom_btn_container .bottom_btn image {
+  width: 50rpx;
+  margin: 25rpx;
+  background: #fff;
+}

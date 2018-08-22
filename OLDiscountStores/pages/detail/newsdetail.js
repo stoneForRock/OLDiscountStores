@@ -20,7 +20,7 @@ Page({
       author: "人民日报",
       publishtime: "2018-08-22",
     },   //详情页数据
-    
+    liked: false,
   },
 
   /**
@@ -33,8 +33,12 @@ Page({
     for (let key in options) {
       _pushInfo[key] = decodeURIComponent(options[key]);
     }
+
+    var hasLiked = app.hasLiked(_pushInfo.sourcesId);
+
     that.setData({
-      newsId: _pushInfo.sourcesId
+      newsId: _pushInfo.sourcesId,
+      liked: hasLiked,
     });
     that.loadNewsDetialRequest();
   },
@@ -83,6 +87,22 @@ Page({
   },
 
   /**
+   * 点赞
+   */
+  likeAction: function() {
+    var that = this;
+    if (that.data.liked) {
+      that.showInfo("已点赞",'none');
+    } else {
+      app.likedSourceWithId(that.data.newsId);
+      that.setData({
+        liked: !that.data.liked,
+      });
+    }
+    
+  },
+
+  /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
@@ -114,7 +134,25 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    
+    var that = this;
+    if (ops.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(ops.target)
+    }
+    return {
+      title: that.data.newsDetailInfo.title,
+      path: '/pages/detail/newsdetail',
+      success: function (res) {
+        // 转发成功
+        console.log("转发成功:" + JSON.stringify(res));
+        that.showInfo("转发成功","success");
+      },
+      fail: function (res) {
+        // 转发失败
+        console.log("转发失败:" + JSON.stringify(res));
+        that.showInfo("转发失败:" + JSON.stringify(res), "error");
+      }
+    }
   },
 
   /**
