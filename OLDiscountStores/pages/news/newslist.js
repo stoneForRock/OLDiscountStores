@@ -176,14 +176,15 @@ Page({
         that.endRefreshForTabInfo();
         let resposnedata = res.data;
         if (resposnedata.code === 0) {
-          if (that.data.pageIndex == 1) {
-            that.setData({
-              newsList: [],
-            });
-          }
+          var newArray = [];
           var responseList = resposnedata.data.list;
           if (responseList.length > 0) {
-            var newArray = that.data.newsList.concat(responseList);
+            if (that.data.pageIndex > 1) {
+              newArray = that.data.newsList.concat(responseList);
+            } else {
+              newArray = responseList;
+            }
+
             that.setData({
               newsList: newArray,
             });
