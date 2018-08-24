@@ -24,13 +24,13 @@
           <view class='item_bottom_contain'>
             <view class='item_container'>
               <image class='item_icon' src='../../images/list_like_icon.png' mode='widthFix'></image>
-              <!-- <view class='item_content'>{{item.likeCount}}</view> -->
-              <view class='item_content'>{{likeCount}}</view>
+              <view class='item_content'>{{item.likeCount}}</view>
+              <!-- <view class='item_content'>{{likeCount}}</view> -->
             </view>
             <view class='item_container'>
               <image class='item_icon' src='../../images/scan_icon.png' mode='widthFix'></image>
-              <!-- <view class='item_content'>{{item.readCount}}</view> -->
-              <view class='item_content'>{{readCount}}</view>
+              <view class='item_content'>{{item.readCount}}</view>
+              <!-- <view class='item_content'>{{readCount}}</view> -->
             </view>
           </view>
         </view>
@@ -44,13 +44,13 @@
           <view class='item_bottom_contain'>
             <view class='item_container'>
               <image class='item_icon' src='../../images/list_like_icon.png' mode='widthFix'></image>
-              <!-- <view class='item_content'>{{item.likeCount}}</view> -->
-              <view class='item_content'>{{likeCount}}</view>
+              <view class='item_content'>{{item.likeCount}}</view>
+              <!-- <view class='item_content'>{{likeCount}}</view> -->
             </view>
             <view class='item_container'>
               <image class='item_icon' src='../../images/scan_icon.png' mode='widthFix'></image>
-              <!-- <view class='item_content'>{{item.readCount}}</view> -->
-              <view class='item_content'>{{readCount}}</view>
+              <view class='item_content'>{{item.readCount}}</view>
+              <!-- <view class='item_content'>{{readCount}}</view> -->
             </view>
           </view>
         </view>

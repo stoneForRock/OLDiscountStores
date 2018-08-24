@@ -50,6 +50,9 @@ App({
     let that = this;
     wx.request({
       url: api.likedSourceUrl,
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
       data:{
         id: sourceId,
       },

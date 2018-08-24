@@ -17,7 +17,7 @@ Page({
     newsId: "",           //详情页的id
     newsDetailInfo: {},   //详情页数据
     liked: false,         //是否已经点赞.由于没有用户体系，此处是否点赞为本地记录
-    likeCount: "10",         //点赞数
+    likeCount: 0,         //点赞数
     readCount: 0,         //阅读数
   },
 
@@ -59,7 +59,7 @@ Page({
           var newdetialInfo = data.data;
           that.setData({
             newsDetailInfo: newdetialInfo,
-            // likeCount: newdetialInfo.likeCount,
+            likeCount: newdetialInfo.likeCount,
           })
           var article = newdetialInfo.content;
           WxParse.wxParse('article_content', 'html', article, that, 5);
@@ -86,6 +86,7 @@ Page({
       app.likedSourceWithId(that.data.newsId);
       that.setData({
         liked: !that.data.liked,
+        likeCount: that.data.likeCount+1,
       });
     }
     
