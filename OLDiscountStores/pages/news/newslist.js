@@ -13,7 +13,7 @@ Page({
    */
   data: {
     detialPageId: "",
-    image_baseurl: api.baseUrl,
+    image_baseurl: api.baseImgUrl,
 
     //是否显示添加到我的小程序的cover
     showCover: false,

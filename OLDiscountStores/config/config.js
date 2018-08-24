@@ -3,6 +3,7 @@
 
 // 服务器域名
 const baseUrl = 'https://olds.developer-ice.xyz/';
+const baseImgUrl = 'http://olds.developer-ice.xyz/';
 
 // 获取资讯列表
 const getNewsListUrl = baseUrl + 'api/article/list';
@@ -18,6 +19,7 @@ const getNewsListOptionsBarListUrl = baseUrl + 'api/article/columns';
 
 module.exports = {
   baseUrl: baseUrl,
+  baseImgUrl: baseImgUrl,
   getNewsListUrl: getNewsListUrl,
   getNewsDetialUrl: getNewsDetialUrl,
   likedSourceUrl: likedSourceUrl,
