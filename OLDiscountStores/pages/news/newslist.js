@@ -71,12 +71,7 @@ Page({
     var windowHeight = wx.getSystemInfoSync().windowHeight;
     var windowWidth = wx.getSystemInfoSync().windowWidth;
     var signalTabWidth = windowWidth / 3;
-    // var canScrollWidth = windowWidth * 2;
     var topSwiperWidth = this.data.topSwiperList.length * signalTabWidth;
-    console.log('topSwiperWidth = ' + topSwiperWidth);
-    // if (canScrollWidth < topSwiperWidth) {
-    //   canScrollWidth = topSwiperWidth;
-    // }
     this.setData({
       topTabWidth: signalTabWidth,
       topScrollWidth: topSwiperWidth,
@@ -89,8 +84,10 @@ Page({
   changeview: function (e) {
     var crash_current = e.currentTarget.dataset.current;
     var distance = 0;
-    if (crash_current != 0 && crash_current != 1) {
-      distance = parseInt(crash_current - 1) * this.data.topTabWidth;
+
+    var currentTapOffset = parseInt(crash_current - 1) * this.data.topTabWidth;
+    if (currentTapOffset > 2 * this.data.topTabWidth) {
+      distance = currentTapOffset;
     }
     this.setData({
       currentTabIndex: e.currentTarget.dataset.current,

@@ -7,7 +7,7 @@
 
 <view class='scrollBgView'></view>
 
-<scroll-view class='tab_scroll' scroll-left="{{topTabScrollLeft}}">
+<scroll-view class='tab_scroll' scroll-x="true" scroll-left="{{topTabScrollLeft}}">
   <view class='tab_scroll_container' style="width:{{topScrollWidth}}rpx;">
     <view class='tap_widget_container' wx:for="{{topSwiperList}}" style="width:{{topTabWidth}}rpx;">
       <view class='tap_widget_textwidget' bindtap='changeview' style="width:{{topTabWidth}}rpx;color:{{currentTabIndex==index?'#ffad42':'#030303'}};" data-current="{{index}}">{{item.title}}</view>
