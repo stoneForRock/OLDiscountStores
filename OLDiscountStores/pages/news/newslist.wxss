@@ -3,7 +3,7 @@
   height: 100%;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.7);
-  z-index: 2;
+  z-index: 3;
 }
 
 .cover .guide_image {
@@ -23,11 +23,20 @@
   background:  #ffad42;
 }
 
+.scrollBgView {
+  background:#ffffff;
+  height:70rpx;
+  width:100%;
+  position:fixed;
+  z-index: 1;
+}
+
 .tab_scroll {
   height:70rpx;
   width:100%;
   overflow:scroll;
   position:fixed;
+  z-index: 2;
 }
 
 .tab_scroll .tab_scroll_container {
@@ -61,9 +70,11 @@
   padding: 5rpx 3%;
   padding-top:80rpx;
 }
+
 .free-WaterfallFlow .flex-wrap{
   display: inline-block;
   width:98%;
+  height: 500rpx;
   margin-bottom:2%;
   /* border:1px solid #ccc; */
   padding:5rpx;
@@ -76,6 +87,7 @@
 }
 .flex-wrap image{
   width:100%;
+  height: 440rpx;
   margin:0 auto;
 }
 
@@ -105,13 +117,16 @@
   height:100%;
 }
 .flex-wrap .item_bottom_contain .item_container image {
-  width:30rpx;
+  width:50rpx;
+  height: 50rpx;
   margin:auto;
   padding:0rpx;
 }
 .flex-wrap .item_bottom_contain .item_container view {
-  font-size:13px;
-  padding:5rpx;
+  font-size:17px;
+  padding: 0rpx;
+  padding-bottom: 5rpx;
+  padding-left: 5rpx;
   color:#717171;
   text-align: left;
   flex:1;

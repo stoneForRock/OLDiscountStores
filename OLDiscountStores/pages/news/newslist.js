@@ -55,7 +55,6 @@ Page({
   //界面出现的时候
   onShow: function () {
     this.initDataInfo();
-    this.fromartUIData();
   },
 
   /**
@@ -72,14 +71,15 @@ Page({
     var windowHeight = wx.getSystemInfoSync().windowHeight;
     var windowWidth = wx.getSystemInfoSync().windowWidth;
     var signalTabWidth = windowWidth / 3;
-    var canScrollWidth = windowWidth * 2;
+    // var canScrollWidth = windowWidth * 2;
     var topSwiperWidth = this.data.topSwiperList.length * signalTabWidth;
-    if (canScrollWidth < topSwiperWidth) {
-      canScrollWidth = topSwiperWidth;
-    }
+    console.log('topSwiperWidth = ' + topSwiperWidth);
+    // if (canScrollWidth < topSwiperWidth) {
+    //   canScrollWidth = topSwiperWidth;
+    // }
     this.setData({
       topTabWidth: signalTabWidth,
-      topScrollWidth: canScrollWidth,
+      topScrollWidth: topSwiperWidth,
     });
   },
 
@@ -151,6 +151,7 @@ Page({
           currentTabIndex: 0,
           pageIndex: 1,
         });
+        that.fromartUIData();
         that.loadTabDatasourceRequest(that.data.currentTabIndex);
       },
       error: function (err) {
@@ -189,7 +190,14 @@ Page({
               newsList: newArray,
             });
           } else {
-            that.showInfo("暂无数据",'none');
+            if (that.data.pageIndex > 1) {
+              that.showInfo("暂无更多数据", 'none');
+            } else {
+              that.setData({
+                newsList: [],
+              });
+              that.showInfo("暂无数据", 'none');
+            }
           }
         } else {
           that.showInfo("请求失败，请稍候再试", 'none');
