@@ -36,7 +36,6 @@ text {
 }
 /* 修正 text 组件 英文&符号不换行的问题  end */
 
-
 .fixed-bottom{
 	position: fixed;
 	bottom: 0rpx;
